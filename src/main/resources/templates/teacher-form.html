@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>➕ 교사 등록</title>
+  <link rel="stylesheet" th:href="@{/styles.css}"/>
+</head>
+<body>
+<h1>➕ 교사 등록</h1>
+<p>
+  <a href="/">🏠 홈으로</a>
+  <a href="/teachers">👥 교사 목록</a>
+</p>
+<form th:action="@{/teachers/add}" th:object="${teacher}" method="post">
+  <p><label>이름: <input type="text" th:field="*{name}" required /></label></p>
+  <p>
+    <button type="submit">저장</button>
+    <a href="/teachers">취소</a>
+  </p>
+</form>
+</body>
+</html>
