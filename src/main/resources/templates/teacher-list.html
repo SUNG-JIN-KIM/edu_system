@@ -2,31 +2,52 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-  <title>‍🏫 교사 목록</title>
-  <link rel="stylesheet" th:href="@{/styles.css}"/>
+  <title>🧑‍🏫 교사 목록</title>
+  <link rel="stylesheet" th:href="@{/styles.css}" />
 </head>
 <body>
-<h1>🧑‍🏫 교사 목록</h1>
 
-<p>
-  <a href="/">🏠 홈으로</a>
-  <a href="/teachers/add">➕ 교사 등록</a>
-</p>
+<div class="container">
+  <header>
+    <h1>🧑‍🏫 교사 목록</h1>
+    <nav>
+      <a href="/">🏠 홈으로</a>
+      <a href="/teachers/add">➕ 교사 등록</a>
+    </nav>
+  </header>
 
-<table>
-  <thead>
-  <tr>
-    <td>ID</td>
-    <td>이름</td>
-    <td>액션</td>
-  </tr>
-  </thead>
-  <tbody th:each="teacher: ${teachers}">
-  <tr>
-    <td th:text="${teacher.id}"></td>
-    <td th:text="${teacher.name}"></td>
-  </tr>
-  </tbody>
-</table>
+  <!-- 오류 메시지 -->
+  <div th:if="${errorMessage}" class="error-message">
+    <p th:text="${errorMessage}"></p>
+  </div>
+
+  <!-- 교사 목록 테이블 -->
+  <div class="table-wrapper">
+    <table>
+      <thead>
+      <tr>
+        <th>ID</th>
+        <th>이름</th>
+        <th>액션</th>
+      </tr>
+      </thead>
+      <tbody th:each="teacher : ${teachers}">
+      <tr>
+        <td th:text="${teacher.id}">1</td>
+        <td th:text="${teacher.name}">홍길동</td>
+        <td>
+          <a th:href="@{|/teachers/edit/${teacher.id}|}" class="btn edit">✏️ 수정</a>
+
+          <form th:action="@{|/teachers/delete/${teacher.id}|}" method="post" style="display:inline;"
+                onsubmit="return confirm('정말 삭제하시겠습니까?');">
+            <button type="submit" class="btn delete">🗑️ 삭제</button>
+          </form>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
 </body>
 </html>
